@@ -1,6 +1,8 @@
 from sensor.logger import logging
 from sensor.exception import SensorException
 from sensor.utils import convert_collection_to_dataframe
+from sensor.entity import config_entity
+from sensor.components import data_ingestion
 import sys,os
 
 def test_logger_and_exception():
@@ -14,7 +16,11 @@ def test_logger_and_exception():
 
 if __name__ == "__main__":
      try:
-          convert_collection_to_dataframe("aps","sensor")
+          DataIngestionConfig_1 = config_entity.DataIngestionConfig()
+          #print(DataIngestionConfig_1.to_dict())
+          data_ingestion_1 = data_ingestion.DataIngestion(data_ingestion_config = DataIngestionConfig_1)
+          print(data_ingestion_1.initiate_data_ingestion())
+
      except Exception as e:
           print("I am here")
           print(e)
