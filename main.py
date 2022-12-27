@@ -1,5 +1,6 @@
 from sensor.logger import logging
 from sensor.exception import SensorException
+from sensor.utils import convert_collection_to_dataframe
 import sys,os
 
 def test_logger_and_exception():
@@ -13,7 +14,7 @@ def test_logger_and_exception():
 
 if __name__ == "__main__":
      try:
-          test_logger_and_exception()
+          convert_collection_to_dataframe("aps","sensor")
      except Exception as e:
           print("I am here")
           print(e)
