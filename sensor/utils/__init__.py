@@ -1,21 +1,20 @@
-import pandas as pd 
-from sensor.config import client
+import pandas as pd
 from sensor.logger import logging
-from sensor.exception import SensorException 
+from sensor.exception import SensorException
+from sensor.config import mongo_client
 import os,sys
 
-def convert_collection_to_dataframe(database_name: str, collection_name: str) -> pd.DataFrame:
+def get_collection_as_dataframe(database_name:str,collection_name:str)->pd.DataFrame:
     #Get the Database and Collection Name, and convert to pandas dataframe
     try:
-        logging.info(f"Reading the MongoDB Table from dataframe : {database_name} and Collection : {collection_name}")
-        df = pd.DataFrame(list(client[database_name][collection_name].find()))
+        logging.info(f"Reading data from database: {database_name} and collection: {collection_name}")
+        df = pd.DataFrame(list(mongo_client[database_name][collection_name].find()))
+        logging.info(f"Found columns: {df.columns}")
         if "_id" in df.columns:
+            logging.info(f"Dropping column: _id ")
             df = df.drop("_id",axis=1)
-        df.drop_duplicates(inplace=True)
-        logging.info(f"Columns in the dataFrame after dropping duplicates : {df.columns}")
-        logging.info(f"Shape of the Dataframe after dropping duplicates : {df.shape}")
+        logging.info(f"Row and columns in df: {df.shape}")
         return df
     except Exception as e:
-        raise SensorException(e,sys)
-
+        raise SensorException(e, sys)
         

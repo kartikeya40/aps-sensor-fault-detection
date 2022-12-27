@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
 @dataclass
-class DataIngestionArtifact: 
-    feature_store_file:str
-    train_file_dir:str
-    test_file_dir:str
+class DataIngestionArtifact:
+    feature_store_file_path:str
+    train_file_path:str 
+    test_file_path:str
 
 class DataValidationArtifact: ...
 class DataTransformationArtifact: ...

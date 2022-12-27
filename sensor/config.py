@@ -10,7 +10,7 @@ import os
 @dataclass
 class EnvironmentVariable:
         #Getting MongoDB URL from .env file
-        mongo_db_url:str = os.getenv("mongo_sensor_url")
+        mongo_db_url:str = os.getenv("MONGO_DB_URL")
 
 #Using __init__ and using @dataclass does the same thing
 #class EnvironmentVariable:
@@ -20,4 +20,4 @@ class EnvironmentVariable:
 
 env_var = EnvironmentVariable()
 #MongoDB URL
-client = pymongo.MongoClient(env_var.mongo_db_url)
+mongo_client = pymongo.MongoClient(env_var.mongo_db_url)
